@@ -1,0 +1,8 @@
+<!-- <p>Score {{score}}, Level {{level}} </p> -->
+<div id="field">
+    <p *ngFor="let key of (keysState$ | async)" [ngStyle]="{left: xOffset(key)}"
+    letterScroll [activeLetter]="key" [activeLevel]="" [activeScore]="">
+        {{key.letter}}
+    </p>
+</div>
+<p>---------------------------------</p>
