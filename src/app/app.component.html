@@ -1,8 +1,10 @@
-<!-- <p>Score {{score}}, Level {{level}} </p> -->
+<mat-card>
+    <mat-icon aria-hidden="false" aria-label="score icon">score</mat-icon>
+    <p>Score : <span id="score">{{gameStatus().score}}</span></p>
+</mat-card>
 <div id="field">
-    <p *ngFor="let key of (keysState$ | async)" [ngStyle]="{left: xOffset(key)}"
-    letterScroll [activeLetter]="key" [activeLevel]="" [activeScore]="">
+    <p *ngFor="let key of (letters$ | async)" [ngStyle]="{left: xOffset(key)}"
+    letterScroll [activeLetter]="key">
         {{key.letter}}
     </p>
 </div>
-<p>---------------------------------</p>

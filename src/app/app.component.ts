@@ -4,20 +4,12 @@ import {
 } from '@angular/core';
 
 import { 
-  BehaviorSubject,
-  fromEvent,
-  Observable, 
+  Observable,
   Subscription 
 } from 'rxjs';
 
-import {   
-  map,
-  scan,
-  takeWhile,
-  filter,
-} from 'rxjs/operators';
-
-import { Letter } from './models/app.models';
+import { Letter, State } from './models/app.models';
+import { AppService } from './app.service';
 
 
 @Component({
@@ -26,43 +18,29 @@ import { Letter } from './models/app.models';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  keys$: Observable<string>;
-  keysState$: Observable<any>;
+  state$: Subscription;
+  letters$: Observable<Letter[]>;
   score: number;
   level: number;
 
+  constructor(private appService: AppService) {}
+
   ngOnInit() {
     console.clear();
-    this.score = 0;
-    this.level = 1;
-    this.keys$ = fromEvent(document, 'keydown').pipe(
-      map((e: KeyboardEvent ) => e.key),
-      filter(k => k.charCodeAt(0) >= 97 && k.charCodeAt(0) <= 122),
-      takeWhile(k => this.level < 10)
-    );
-    this.keysState$ = this.keys$.pipe(
-      scan<string, Letter[]>(
-        (letter, value, i) => ([{
-          letter: value,
-          yPos: Math.floor(Math.random() * 600),
-          score: this.score,
-          level: this.level
-        },
-        ...letter
-      ]),
-        []
-      ),
-    ) 
-  }
-
-  randomLetter() {
-    const alphabetLength = 25;
-    return String.fromCharCode(
-      Math.random() * alphabetLength + 'a'.charCodeAt(0)
-    );
+    this.state$ = this.appService.stateObs()
+      .subscribe();
+    this.letters$ = this.appService.selector('letters');
   }
 
   xOffset(value: Letter) {
     return value.yPos + 'px';
+  }
+
+  gameStatus() {
+    return this.appService.getGameStatus;
+  }
+
+  test() {
+    this.appService.gameStatus.subscribe(console.log);
   }
 }

@@ -8,3 +8,8 @@ export interface State {
     score: number;
     level: number;
 }
+
+export interface GameStatistics {
+  score: number;
+  level: number;
+}

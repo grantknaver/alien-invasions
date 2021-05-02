@@ -1,13 +1,35 @@
+mat-card {
+    display: flex;
+    align-items: flex-end;
+    max-width: 498px;
+    border-radius: 0 !important;
+
+    mat-icon {
+        margin-right: 20px;
+    }
+
+    #score {
+        color: #f5f06e;
+    }
+
+}
+
 #field {
-    height: 500px;
-    width: 500px;
+    height: 512px;
+    width: 510px;
     position: relative;
     background-color: lightgray;
+    border: #424242 solid 10px;
 
     p {
         color: white;
         font-weight: bold;
         position: absolute;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        text-shadow: 2px 2px 2px black; 
     }
 
 }
